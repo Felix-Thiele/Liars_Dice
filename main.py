@@ -9,7 +9,7 @@ agent_dict = {'human_agent':bots.human_move,
     'best_exp_remember_hist_bluff_2': lambda g: bots.bot_best_expectation_with_hist(g, bluff=2)}
 
 
-agents = ['human_agent', 'best_exp', 'best_exp_remember_hist', 'best_exp_bluff_1', 'best_exp_remember_hist_bluff_1', 'best_exp_remember_hist_bluff_2']
+agents = ['best_exp', 'best_exp_remember_hist', 'best_exp_bluff_1', 'best_exp_remember_hist_bluff_1', 'best_exp_remember_hist_bluff_2']
 winners = []
 for i in range(1):
     g = bluff.bluff_gamestate([agent_dict[b] for b in agents])
