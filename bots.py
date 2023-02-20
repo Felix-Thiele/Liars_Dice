@@ -64,11 +64,10 @@ def bot_best_expectation(game, bluff=0):
 def bot_best_expectation_with_hist(game, bluff=0):
     # Same bot as above but tries to guess the dice of other players.
 
-
     # First we guess the expectations without any knowledge of the dice
     default_exp = [(2 - index // 6) / 6 * (sum(game.dice_nr)) for index in range(1, 7)]
 
-    # Now if a player makes a guess that is above the defaul approximation we guess that he has two of this die.
+    # Now if a player makes a guess that is above the defaul approximation we guess that he has one more than expected this die.
     dice_guess = [0]*6
     for h in game.history[::-1]:
         h_state = h[1]
