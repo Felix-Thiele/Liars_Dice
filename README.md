@@ -25,11 +25,12 @@ The last player to have dice wins.
 - Depending on the payoff if it is preferred to become second, in the rule set that all players but the better
         have to pay for wrong bluff calls, one might try to purposefully kick out a player who has less dice, by
         calling a bluff on plays that are below the expectation.
+- One could also remember how often players have lied, and add this into decision distributions.
 - One of the bots here tries to guess when players have 1 more than the expectation of a certain face. 
     This is done when a player bets above the expectation. But one could go one step further since other players might
     have also guessed that a third player has more than the expectation and only be using this information for his bet.
     Also if another player uses this tactic, one might approximate his expectations more accurately knowing one's own
-    bets and dice.
+    bets and dice. 
 - It would be interesting to train a reinforcement algoirthm to see the differences to these strategies.
 
 #### Playground
