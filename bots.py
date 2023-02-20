@@ -19,10 +19,11 @@ Some more Ideas for Bots:
 def human_move(game):
     # either input FINAL_MOVE or two ints seperated by a comma
     print('\n\n\n\n--------------')
-    for h in self.history:
+    print(game.dice_nr)
+    for h in game.history:
         print('Player ', h[0], ' played move ', h[1])
-    input1 = input('                 Input a move: ')
-    return input1 if input1==FINAL_MOVE else [int(_) for _ in input1.split(',')]
+    input1 = input('                 Input a move as two ints separated by a comma: ')
+    return int(input1.split(',')[0]), int(input1.split(',')[1])
 
 
 def _get_move_from_expectationis(game, my_exp, bluff=0):
