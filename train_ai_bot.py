@@ -5,6 +5,10 @@ import random
 from tqdm import tqdm
 import bots
 
+
+#### MEH doesnt work yet
+
+
 def get_model():
         inputs = tf.keras.Input(shape=(148,))
         x = tf.keras.layers.Dense(150, activation=tf.nn.relu)(inputs)
@@ -25,35 +29,46 @@ def model_agent(game, model):
     state = game.get_encoding()
     last_non_zero = max(37, np.max(np.nonzero(state)))
     possible_states = []
-    for i in list(range(last_non_zero + 1, min(len(state), last_non_zero + 20))) + [-1]:
+    next_moves = list(range(last_non_zero + 1, min(len(state), last_non_zero + 20, 146))) + [147]
+    for i in next_moves:
         state[i] = 1
         possible_states.append(state.copy())
         state[i] = 0
-    next_move_values = model.predict(np.array(possible_states), verbose=0)
+    next_move_values = model.predict(np.array(possible_states), verbose=0).reshape(-1)
+    print(next_move_values)
     next_move_values = np.array(next_move_values)
     if np.all(next_move_values<=0):
-        return game.list_possible_states[last_non_zero-37 + np.argmax(next_move_values)+2]
+        return game.list_possible_states[next_moves[np.argmax(next_move_values)]-36]
     else:
         next_move_values = next_move_values[next_move_values>0]
         probability = next_move_values/np.sum(next_move_values)
         result = np.random.choice([i for i in range(len(next_move_values))], 1, p=probability)[0]
-        return game.list_possible_states[last_non_zero-37+result+2]
+        return game.list_possible_states[next_moves[result]-36]
 
 
-def train(self_play_batches=10, self_play_batchsize=100):
+def train(self_play_batches=10, self_play_batchsize=10):
 
     model = get_model()
 
     # pretrain with hardcoded bot
-    for _ in range(15):
-        g = bluff.bluff_gamestate([bots.random_bot, lambda g: bots.bot_best_expectation_with_hist(g, bluff=2)] * random.randint(2, 5))
+    for _ in range(5):
+        g = bluff.bluff_gamestate([lambda g: bots.bot_best_expectation_with_hist(g, bluff=2)] * random.randint(2, 4))
         x_train, y_train = g.collect_data(10000)
+        print(np.count_nonzero(y_train==0)/np.count_nonzero(y_train==1))
         model.fit(x_train, y_train, batch_size=64, epochs=5, validation_split=0.2)
 
+    """ THIS IS WAY TO SLOW
+    # train against itself
     for _ in tqdm(range(self_play_batches)):
-        g = bluff.bluff_gamestate([lambda game: model_agent(game, model)]*random.randint(2, 5))
+        g = bluff.bluff_gamestate([lambda game: model_agent(game, model)]*random.randint(2, 4))
         x_train,y_train = g.collect_data(self_play_batchsize)
         model.fit(x_train, y_train, batch_size=64, epochs=2, validation_split=0.2)
+    """
+
+    model.save('tests_model_1')
 
 
-train()
+def ai_agent(game):
+    model = tf.keras.models.load_model('tests_model_1')
+    return model_agent(game, model)
+
