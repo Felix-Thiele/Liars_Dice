@@ -75,15 +75,15 @@ def bot_best_expectation_with_hist(game, bluff=0):
     default_exp = [(2 - index // 6) / 6 * (np.sum(game.dice_nr)) for index in range(1, 7)]
 
     # Now if a player makes a guess that is above the defaul approximation we guess that he has one more than expected this die.
-    dice_guess = [0]*6
+    dice_guess = [[0]*len(game.players) for _ in range(6)]
     for h in game.history[::-1]:
         h_state = h[1]
         if h_state[0]>default_exp[h_state[1]-1]:
-            dice_guess[h[0]-1]=1+1/6*game.dice_nr[h[0] - 1]# + dice_guess[h[0]]*.1
+            dice_guess[h_state[1]-1][h[0]]=1+1/6*game.dice_nr[h[0]]# + dice_guess[h[0]]*.1
 
     my_exp = [game.get_my_dice().count(i)
               + game.get_my_dice().count(6)
-              + dice_guess[i - 1] * 2 / 6
+              + sum(dice_guess[i - 1]) * 2 / 6
               + (2 - i // 6) / 6 * ((np.sum(game.dice_nr)) - len(game.get_my_dice()) - len(dice_guess))
               for i in range(1, 7)]
 
