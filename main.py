@@ -11,8 +11,10 @@ agent_dict = {'human_agent':bots.human_move,
 
 agents = ['best_exp', 'best_exp_remember_hist', 'best_exp_bluff_1', 'best_exp_remember_hist_bluff_1', 'best_exp_remember_hist_bluff_2']
 winners = []
-for i in range(1):
-    g = bluff.bluff_gamestate([agent_dict[b] for b in agents])
-    winners.append(g.play_game())
+g = bluff.bluff_gamestate([agent_dict[b] for b in agents])
+for i in range(300):
+    g.reset()
+    result = g.play_game(True)
+    winners.append(result)
 for i in set(winners):
     print(' won ', winners.count(i), ' times with: bot ', agents[i])
