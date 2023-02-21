@@ -1,3 +1,4 @@
+import random
 from random import randint
 import numpy as np
 from tqdm import tqdm
@@ -34,8 +35,8 @@ class bluff_gamestate:
         self._dice = []
         self._roll_dice()
         self.state = (1, 0)
-        self.next_to_move = 1
-        self.last_to_move = 0
+        self.last_to_move = random.randint(0,len(self.players)-1)
+        self.next_to_move = (self.last_to_move+1)%len(self.players)
 
 
         self.history_hash = np.array([0] * (len(self.list_possible_states) - 1))
@@ -54,8 +55,8 @@ class bluff_gamestate:
         self.history_hash = np.array([0] * (len(self.list_possible_states) - 1))
         self.history = []
         self.state = (1, 0)
-        self.next_to_move = 1
-        self.last_to_move = 0
+        self.last_to_move = random.randint(0,len(self.players)-1)
+        self.next_to_move = (self.last_to_move+1)%len(self.players)
 
     def get_my_dice(self):
         return self._dice[self.next_to_move]

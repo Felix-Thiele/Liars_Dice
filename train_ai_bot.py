@@ -45,10 +45,10 @@ def train(self_play_batches=10, self_play_batchsize=100):
     model = get_model()
 
     # pretrain with hardcoded bot
-    for _ in range(5):
-        g = bluff.bluff_gamestate([lambda g: bots.bot_best_expectation_with_hist(g, bluff=2)] * random.randint(2, 5))
-        x_train, y_train = g.collect_data(100000)
-        model.fit(x_train, y_train, batch_size=64, epochs=100, validation_split=0.2)
+    for _ in range(15):
+        g = bluff.bluff_gamestate([bots.random_bot, lambda g: bots.bot_best_expectation_with_hist(g, bluff=2)] * random.randint(2, 5))
+        x_train, y_train = g.collect_data(10000)
+        model.fit(x_train, y_train, batch_size=64, epochs=5, validation_split=0.2)
 
     for _ in tqdm(range(self_play_batches)):
         g = bluff.bluff_gamestate([lambda game: model_agent(game, model)]*random.randint(2, 5))

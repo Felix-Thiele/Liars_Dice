@@ -26,6 +26,14 @@ def human_move(game):
     return int(input1.split(',')[0]), int(input1.split(',')[1])
 
 
+def random_bot(game):
+    state = game._get_next_state(game.state)
+    possible = []
+    while state is not None:
+        possible.append(state)
+        state = game._get_next_state(state)
+    return possible[np.random.choice([_ for _ in range(len(possible))])]
+
 def _get_move_from_expectationis(game, my_exp, bluff=0):
 
     state_likelyhoods = {(0, 5): -(my_exp[game.state[1] - 1] - game.state[0])} if game.state != (0, 5) else {}
@@ -71,7 +79,7 @@ def bot_best_expectation_with_hist(game, bluff=0):
     for h in game.history[::-1]:
         h_state = h[1]
         if h_state[0]>default_exp[h_state[1]-1]:
-            dice_guess[h[0]]=1+1/6*game.dice_nr[h[0] - 1]# + dice_guess[h[0]]*.1
+            dice_guess[h[0]-1]=1+1/6*game.dice_nr[h[0] - 1]# + dice_guess[h[0]]*.1
 
     my_exp = [game.get_my_dice().count(i)
               + game.get_my_dice().count(6)
