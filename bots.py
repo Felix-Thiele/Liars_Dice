@@ -1,3 +1,5 @@
+import random
+
 import bluff
 import numpy as np
 import math
@@ -32,7 +34,7 @@ def random_bot(game):
     while state is not None:
         possible.append(state)
         state = game._get_next_state(state)
-    return possible[np.random.choice([_ for _ in range(len(possible))])]
+    return random.choice(possible)
 
 def _get_move_from_expectationis(game, my_exp, bluff=0):
 

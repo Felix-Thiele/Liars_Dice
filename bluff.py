@@ -95,11 +95,13 @@ class bluff_gamestate:
     def play_game(self, return_train=False):
         game_live = True
         while game_live:
-            game_live = self.move(self.players[self.next_to_move](self))
+            move = self.players[self.next_to_move](self)
+            game_live = self.move(move)
         return self._get_winner()
 
 
     def collect_data(self, ammount):
+        # todo need better scoring, also track if won or not... 1, -1, 0.2 just for some basic testing
         x, y = [], []
         for _ in range(ammount):
             game_live = True
@@ -116,7 +118,7 @@ class bluff_gamestate:
                     else:
                         y.append(-1)
                 else:
-                    y.append(1)
+                    y.append(0)
                 game_live = self.move(next_move)
             self.reset()
         return np.array(x), np.array(y)
@@ -161,16 +163,16 @@ class bluff_gamestate:
             return state[0] * 2, 1
 
     def _bluff_rules_1(self, diff):
-        if 0 < diff:
-            self.dice_nr[self.last_to_move] -= diff
+        if 0 > diff:
+            self.dice_nr[self.next_to_move] += diff
         else:
             for index in range(len(self.players)):
                 if index != self.next_to_move:
-                    self.dice_nr[index] += (diff - 1)
+                    self.dice_nr[index] -= (diff + 1)
 
     def _bluff_rules_2(self, diff):
-        if 0 < diff:
-            self.dice_nr[self.last_to_move] -= 1
+        if 0 > diff:
+            self.dice_nr[self.next_to_move] -= 1
         else:
             for index in range(len(self.players)):
                 if index != self.next_to_move:

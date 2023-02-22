@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9fb7508f-2141-49d5-b8bb-c7b825b49938" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bluff.py" beforeDir="false" afterPath="$PROJECT_DIR$/bluff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bots.py" beforeDir="false" afterPath="$PROJECT_DIR$/bots.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_model_1/fingerprint.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_model_1/keras_metadata.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_model_1/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_model_1/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_model_1/variables/variables.index" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/train_ai_bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_ai_bot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,13 +33,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/PythonProjects/liarsdice"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PythonProjects/liarsdice&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="liarsdice" />
