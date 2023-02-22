@@ -50,7 +50,7 @@ def model_agent(game, model):
 def train(self_play_batches=3, self_play_batchsize=300):
 
     def noise(y, sig=.5):
-        y = y+np.random.normal(0, sig)
+        y = y+np.random.normal(0, sig, y.size)
         y[y>1]=1
         y[y<-1]=-1
         return y
@@ -60,17 +60,18 @@ def train(self_play_batches=3, self_play_batchsize=300):
     # pretrain with hardcoded bot
     for _ in range(20):
         g = bluff.bluff_gamestate([random.choice([lambda g: bots.bot_best_expectation_with_hist(g, bluff=0), lambda g: bots.bot_best_expectation_with_hist(g, bluff=0), lambda g: bots.bot_best_expectation(g, bluff=20)]) for _ in range(2,9)])
-        x_train, y_train = g.collect_data(1000)
+        x_train, y_train = g.collect_data(10000)
         # print(np.count_nonzero(y_train==0)/np.count_nonzero(y_train==1))
         model.fit(x_train, noise(y_train, random.uniform(0.2, 0.6)), batch_size=64, epochs=5, validation_split=0.2)
 
+    """
     # train against itself
     for _ in tqdm(range(self_play_batches)):
         g = bluff.bluff_gamestate([lambda game: model_agent(game, model)]*random.randint(2, 4))
         x_train,y_train = g.collect_data(self_play_batchsize)
         model.fit(x_train, noise(y_train, random.uniform(0.3, 0.4)), batch_size=64, epochs=5, validation_split=0.2)
+    """
 
-
-    model.save('ai_half_self_trained')
+    model.save('ai_trained_like_prev_bots')
 
 

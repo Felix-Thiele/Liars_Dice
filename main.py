@@ -5,7 +5,7 @@ from tqdm import tqdm
 import tensorflow as tf
 
 # ai experiments not working yet
-#train_ai_bot.train()
+# train_ai_bot.train()
 
 model1 = tf.keras.models.load_model('ai_trained_like_prev_bots')
 model2 = tf.keras.models.load_model('ai_half_self_trained')
@@ -24,8 +24,8 @@ agent_dict = {'human_agent':bots.human_move,
 agents = [
 #    'random',
     'best_exp',
-    'ai_half_self_trained'
-#    'ai_trained_like_rem',
+#    'ai_half_self_trained'
+    'ai_trained_like_rem',
 #   'best_exp_remember_hist',
 #   'best_exp_bluff_1',
 #   'best_exp_remember_hist_bluff_1',
